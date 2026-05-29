@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1a2a4a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Campello">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<title>Proposta Comercial – Campello Imóveis</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+:root {
+  --navy: #1a2a4a;
+  --red: #9b1c1c;
+  --light: #f5f7fa;
+  --accent: #eaeff6;
+  --border: #d8dde6;
+  --text: #1e1e2e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  background: #dde1e8;
+  min-height: 100vh;
+  padding: 32px 16px 48px;
+  color: var(--text);
+}
+/* ===== CARD ===== */
+.form-card {
+  max-width: 860px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 4px 24px rgba(26,42,74,.13);
+  overflow: hidden;
+}
+/* ===== HEADER ===== */
+.form-header {
+  background: #fff;
+  padding: 28px 48px 20px;
+  text-align: center;
+  border-bottom: 2.5px solid var(--navy);
+}
+.form-header img {
+  display: block;
+  margin: 0 auto 10px;
+  height: 52px;
+  width: auto;
+}
+.form-header h1 {
+  font-family: Georgia, serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  font-weight: bold;
+  color: var(--navy);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+/* ===== BODY ===== */
+.form-body { padding: 28px 40px 36px; }
+/* ===== SECTION ===== */
+.section {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 16px 18px 10px;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: Georgia, serif;
+  font-size: .7rem;
+  font-weight: bold;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--navy);
+  border-bottom: 1.5px solid var(--navy);
+  padding-bottom: 5px;
+  margin-bottom: 14px;
+}
+/* ===== ROWS / FIELDS ===== */
+.row { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+.col { flex: 1; min-width: 120px; }
+.col.w2 { flex: 2; }
+.col.w3 { flex: 3; }
+label {
+  display: block;
+  font-family: Georgia, serif;
+  font-size: .68rem;
+  font-weight: bold;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--navy);
+  opacity: .75;
+  margin-bottom: 4px;
+}
+input[type=text], input[type=date], select, textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 7px 10px;
+  font-size: .87rem;
+  font-family: Georgia, serif;
+  background: var(--light);
+  color: var(--text);
+  transition: border-color .18s, background .18s;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--navy);
+  background: #fff;
+}
+textarea { resize: vertical; min-height: 56px; }
+.field-hint {
+  font-size: .68rem;
+  font-style: italic;
+  color: #888;
+  margin-top: 2px;
+  font-family: Georgia, serif;
+}
+.auto-badge {
+  font-size: .62rem;
+  font-family: Georgia, serif;
+  background: #dce8f5;
+  color: #1a5e9b;
+  border: 1px solid #b0c8e4;
+  border-radius: 3px;
+  padding: 1px 5px;
+  margin-left: 4px;
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: normal;
+}
+input.auto-field {
+  background: #f0f5ff;
+  border-color: #b8c8df;
+}
+input.auto-field:focus { background: #fff; }
+
+/* ===== PLANO BLOCK ===== */
+.plano-wrap {
+  border: 1px solid #c0c8d8;
+  border-left: 4px solid var(--navy);
+  border-radius: 5px;
+  padding: 16px 16px 10px;
+  margin-bottom: 14px;
+  background: var(--accent);
+  position: relative;
+  overflow: hidden;
+}
+/* Marca d'água */
+.plano-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  opacity: .055;
+  user-select: none;
+}
+.plano-watermark svg { display: block; }
+.plano-watermark-text {
+  font-family: Georgia, serif;
+  font-size: 8px;
+  color: var(--navy);
+  text-align: center;
+  line-height: 1.8;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  white-space: nowrap;
+}
+.plano-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.plano-num {
+  font-size: .7rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--navy);
+  font-family: Georgia, serif;
+}
+.plano-badge-label {
+  font-size: .68rem;
+  font-weight: bold;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--navy);
+  background: #d5e0f0;
+  border: 1px solid #b0c4dc;
+  border-radius: 3px;
+  padding: 3px 10px;
+  font-family: Georgia, serif;
+  margin-left: auto;
+}
+.btn-remove {
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 12px;
+  font-size: .7rem;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  letter-spacing: .5px;
+  transition: background .15s;
+}
+.btn-remove:hover { background: #7a1414; }
+.plano-section-label {
+  font-size: .65rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--navy);
+  opacity: .5;
+  font-family: Georgia, serif;
+  margin-bottom: 8px;
+}
+.plano-divider {
+  border: none;
+  border-top: 1px dashed #b8c4d4;
+  margin: 10px 0;
+}
+/* ===== BUTTONS ===== */
+.btn-add {
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 9px 20px;
+  font-size: .8rem;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  letter-spacing: 1px;
+  transition: background .15s;
+  margin-top: 2px;
+}
+.btn-add:hover { background: #243d6e; }
+.actions {
+  margin-top: 28px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn-pdf {
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 13px 36px;
+  font-size: .96rem;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  letter-spacing: 1px;
+  transition: background .15s;
+}
+.btn-pdf:hover { background: #7a1414; }
+.btn-clear {
+  background: #6b7280;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 13px 24px;
+  font-size: .96rem;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  transition: background .15s;
+}
+.btn-clear:hover { background: #4b5563; }
+
+/* ===== PDF AREA (hidden) ===== */
+#pdf-preview-area { display: none; }
+#pdf-doc {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 14mm 18mm 20mm;
+  font-family: Georgia, serif;
+  font-size: 10.5pt;
+  color: #111;
+  background: #fff;
+  position: relative;
+}
+/* PDF watermark */
+.pdf-wm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: .04;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.pdf-wm-text {
+  font-family: Georgia, serif;
+  font-size: 9pt;
+  color: #1a2a4a;
+  text-align: center;
+  line-height: 1.9;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  white-space: nowrap;
+}
+.pdf-logo { display: block; height: 46px; margin: 0 auto 8px; }
+.pdf-title {
+  text-align: center;
+  font-size: 15pt;
+  font-weight: bold;
+  font-style: italic;
+  color: #1a2a4a;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+.pdf-hr { border: none; border-top: 2px solid #1a2a4a; margin: 0 0 12px; }
+.pdf-proponente {
+  font-size: 11pt;
+  margin-bottom: 14px;
+}
+.pdf-proponente span { font-weight: bold; color: #1a2a4a; }
+.pdf-emp-block {
+  font-size: 10pt;
+  text-align: center;
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+.pdf-plano-title {
+  font-size: 13pt;
+  font-weight: bold;
+  color: #9b1c1c;
+  text-align: center;
+  letter-spacing: 1.5px;
+  text-decoration: underline;
+  text-transform: uppercase;
+  margin: 16px 0 10px;
+}
+.pdf-apt { font-weight: bold; font-size: 11pt; margin-bottom: 3px; }
+.pdf-carac { font-size: 10pt; font-weight: bold; margin-bottom: 8px; }
+table.ptable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 6px 0 10px;
+  font-size: 10pt;
+}
+table.ptable td {
+  border: 1px solid #c8cfd8;
+  padding: 5px 10px;
+}
+table.ptable tr:first-child td {
+  background: #dce5f0;
+  font-weight: bold;
+}
+table.ptable td:last-child { text-align: right; }
+.pdf-cond-title { font-weight: bold; font-size: 10pt; margin: 8px 0 4px; }
+.pdf-cond-item { font-size: 10pt; margin-left: 16px; margin-bottom: 3px; }
+.pdf-obs { font-size: 9.5pt; font-style: italic; color: #333; margin: 6px 0; padding: 6px 10px; border-left: 3px solid #b0c4dc; }
+.pdf-enxoval {
+  border: 1px solid #c8cfd8;
+  border-radius: 3px;
+  padding: 8px 14px;
+  margin: 14px 0 8px;
+  font-size: 10pt;
+  background: #f0f4f9;
+}
+.pdf-enx-title { font-weight: bold; color: #9b1c1c; margin-bottom: 4px; font-size: 10pt; text-transform: uppercase; letter-spacing: 1px; }
+.pdf-obs-geral { margin: 10px 0 6px; font-size: 9.5pt; font-style: italic; color: #444; }
+.pdf-disclaimer {
+  font-size: 8.5pt;
+  font-style: italic;
+  color: #666;
+  text-align: center;
+  margin: 16px 0 10px;
+}
+.pdf-date-cor { text-align: center; font-size: 10pt; margin: 6px 0; }
+.pdf-footer {
+  border-top: 2px solid #1a2a4a;
+  padding-top: 8px;
+  margin-top: 18px;
+  text-align: center;
+  font-size: 9pt;
+  color: #333;
+  line-height: 1.7;
+}
+
+/* ===== INSTALL BANNER ===== */
+#install-banner {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--navy);
+  color: #fff;
+  padding: 14px 20px;
+  text-align: center;
+  z-index: 9999;
+  font-family: Georgia, serif;
+  font-size: .88rem;
+  box-shadow: 0 -2px 12px rgba(0,0,0,.25);
+}
+.btn-install {
+  margin-left: 12px;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 7px 18px;
+  font-size: .84rem;
+  cursor: pointer;
+  font-family: Georgia, serif;
+}
+.btn-install-cancel {
+  margin-left: 8px;
+  background: transparent;
+  color: #ccc;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 7px 14px;
+  font-size: .84rem;
+  cursor: pointer;
+  font-family: Georgia, serif;
+}
+</style>
+</head>
+<body>
+
+<div class="form-card">
+
+  <!-- HEADER -->
+  <div class="form-header">
+    <img src="07-lockup-horizontal-sobre-branco.png" alt="Campello Imóveis">
+    <h1>Proposta Comercial</h1>
+  </div>
+
+  <div class="form-body">
+
+    <!-- BLOCO 1: PROPONENTE -->
+    <div class="section">
+      <div class="section-title">1. Proponente Comprador</div>
+      <div class="row">
+        <div class="col">
+          <label for="comprador">Nome Completo</label>
+          <input type="text" id="comprador" placeholder="Nome completo do comprador">
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOCO 2: EMPREENDIMENTO -->
+    <div class="section">
+      <div class="section-title">2. Empreendimento</div>
+      <div class="row">
+        <div class="col w3">
+          <label for="empreendimento">Nome do Condomínio</label>
+          <input type="text" id="empreendimento" placeholder="Ex: Empreendimento Leonardo da Vinci">
+        </div>
+        <div class="col w2">
+          <label for="construtora">Construtora</label>
+          <input type="text" id="construtora" placeholder="Ex: LINEAR">
+        </div>
+        <div class="col">
+          <label for="bloco">Bloco / Torre</label>
+          <input type="text" id="bloco" placeholder="Ex: Bloco 1">
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOCO 2.1: APARTAMENTO -->
+    <div class="section">
+      <div class="section-title">2.1 Apartamento / Unidade</div>
+      <div class="row">
+        <div class="col w2">
+          <label for="apto">Apartamento / Unidade</label>
+          <input type="text" id="apto" placeholder="Ex: Apartamento 505 – 5º Andar">
+        </div>
+        <div class="col">
+          <label for="metragem">Metragem (m²)</label>
+          <input type="text" id="metragem" placeholder="Ex: 73">
+        </div>
+        <div class="col">
+          <label for="quartos">Quartos</label>
+          <input type="text" id="quartos" placeholder="Ex: 03">
+        </div>
+        <div class="col">
+          <label for="varandas">Varandas</label>
+          <input type="text" id="varandas" placeholder="Ex: 01">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col w2">
+          <label for="vista">Vista</label>
+          <input type="text" id="vista" placeholder="Ex: Piscina / Rua / Jardim">
+        </div>
+        <div class="col w3">
+          <label for="carac">Características adicionais</label>
+          <input type="text" id="carac" placeholder="Ex: Sol da manhã, andar alto, vaga dupla">
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOCO 3: PLANOS -->
+    <div class="section">
+      <div class="section-title">3. Plano / Proposta</div>
+      <div id="planos-container"></div>
+      <button class="btn-add" id="btn-add-plano">+ Adicionar outro plano / opção</button>
+    </div>
+
+    <!-- BLOCO 4: ENXOVAL -->
+    <div class="section">
+      <div class="section-title">4. Enxoval do Condomínio</div>
+      <div class="row">
+        <div class="col">
+          <label for="enx-valor">Valor Total (R$)</label>
+          <input type="text" id="enx-valor" placeholder="Ex: 22.500,00">
+        </div>
+        <div class="col">
+          <label for="enx-parcelas">Parcelamento</label>
+          <input type="text" id="enx-parcelas" placeholder="Ex: 12x de R$ 1.875,00">
+        </div>
+        <div class="col w2">
+          <label for="enx-obs">Observação</label>
+          <input type="text" id="enx-obs" placeholder="Ex: Possibilidade de parcelamento em até 12 meses">
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOCO 5: DADOS DO DOCUMENTO -->
+    <div class="section">
+      <div class="section-title">5. Dados do Documento</div>
+      <div class="row">
+        <div class="col">
+          <label for="cidade">Cidade</label>
+          <input type="text" id="cidade" value="Belo Horizonte">
+        </div>
+        <div class="col">
+          <label for="data-doc">Data</label>
+          <input type="date" id="data-doc">
+        </div>
+        <div class="col w2">
+          <label for="corretor">Corretor Responsável</label>
+          <input type="text" id="corretor" placeholder="Nome do corretor">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="obs-gerais">Observações Gerais</label>
+          <textarea id="obs-gerais" placeholder="Particularidades, condições especiais ou informações adicionais..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-pdf" id="btn-gerar-pdf">⬇ Gerar PDF da Proposta</button>
+      <button class="btn-clear" id="btn-limpar">🗑 Limpar Formulário</button>
+    </div>
+
+  </div><!-- /form-body -->
+</div><!-- /form-card -->
+
+<!-- PDF (oculto) -->
+<div id="pdf-preview-area"><div id="pdf-doc"></div></div>
+
+<!-- Banner de instalação PWA -->
+<div id="install-banner">
+  📲 <strong>Instalar o app Campello</strong> na tela inicial?
+  <button class="btn-install" id="btn-install">Instalar</button>
+  <button class="btn-install-cancel" id="btn-install-cancel">Agora não</button>
+</div>
+
+<script>
+var planoCount = 0;
+
+function val(id) {
+  var el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
+/* -------- CRIAR PLANO -------- */
+function criarPlano(id) {
+  var wrap = document.createElement('div');
+  wrap.className = 'plano-wrap';
+  wrap.id = 'plano-' + id;
+
+  /* Marca d'água */
+  var wm = document.createElement('div');
+  wm.className = 'plano-watermark';
+  wm.innerHTML = '<svg width="72" height="72" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 8C26 8 10 25 10 48c0 19 13 34 32 38V74c-13-4-22-14-22-26 0-18 13-30 30-30s30 12 30 30c0 12-9 22-22 26v12c19-4 32-19 32-38C90 25 74 8 50 8Z" fill="#1a2a4a"/><rect x="55" y="51" width="19" height="19" rx="3" fill="#9b1c1c"/></svg><div class="plano-watermark-text">Campello Im&oacute;veis &middot; CNPJ 25.309.187/0001-30<br>R. dos Advogados, 270B &middot; Al&iacute;pio de Melo &middot; BH&ndash;MG<br>(31) 3643-9774 / (31) 98439-7777</div>';
+  wrap.appendChild(wm);
+
+  /* Cabeçalho do plano */
+  var head = document.createElement('div');
+  head.className = 'plano-head';
+
+  var numEl = document.createElement('span');
+  numEl.className = 'plano-num';
+  numEl.textContent = 'Plano / Op\u00e7\u00e3o ' + id;
+
+  var badge = document.createElement('span');
+  badge.className = 'plano-badge-label';
+  badge.textContent = '\u2726 Plano Exclusivo de Financiamento Direto';
+
+  var btnRem = document.createElement('button');
+  btnRem.className = 'btn-remove';
+  btnRem.textContent = '\u2715 Remover';
+  btnRem.setAttribute('data-id', id);
+  btnRem.addEventListener('click', function() { removerPlano(id); });
+
+  head.appendChild(numEl);
+  head.appendChild(badge);
+  head.appendChild(btnRem);
+  wrap.appendChild(head);
+
+  /* ---- VALORES ---- */
+  var lbValores = document.createElement('div');
+  lbValores.className = 'plano-section-label';
+  lbValores.textContent = 'Valores';
+  wrap.appendChild(lbValores);
+
+  var rowValores = document.createElement('div');
+  rowValores.className = 'row';
+
+  /* Valor do Imóvel */
+  var cValor = document.createElement('div');
+  cValor.className = 'col';
+  var lValor = document.createElement('label');
+  lValor.textContent = 'Valor do Im\u00f3vel (R$)';
+  var iValor = document.createElement('input');
+  iValor.type = 'text';
+  iValor.id = 'p' + id + '_valor';
+  iValor.placeholder = 'Ex: 835.491,67';
+  cValor.appendChild(lValor);
+  cValor.appendChild(iValor);
+
+  /* Entrada */
+  var cEntrada = document.createElement('div');
+  cEntrada.className = 'col';
+  var lEntrada = document.createElement('label');
+  var autoSpanE = document.createElement('span');
+  autoSpanE.className = 'auto-badge';
+  autoSpanE.textContent = '\u21c4 auto';
+  lEntrada.textContent = 'Entrada (R$)';
+  lEntrada.appendChild(autoSpanE);
+  var iEntrada = document.createElement('input');
+  iEntrada.type = 'text';
+  iEntrada.id = 'p' + id + '_entrada';
+  iEntrada.className = 'auto-field';
+  iEntrada.placeholder = 'Ex: 250.491,67';
+  cEntrada.appendChild(lEntrada);
+  cEntrada.appendChild(iEntrada);
+
+  /* % Entrada */
+  var cPct = document.createElement('div');
+  cPct.className = 'col';
+  var lPct = document.createElement('label');
+  var autoSpanP = document.createElement('span');
+  autoSpanP.className = 'auto-badge';
+  autoSpanP.textContent = '\u21c4 auto';
+  lPct.textContent = '% da Entrada';
+  lPct.appendChild(autoSpanP);
+  var iPct = document.createElement('input');
+  iPct.type = 'text';
+  iPct.id = 'p' + id + '_pct';
+  iPct.className = 'auto-field';
+  iPct.placeholder = 'Ex: 30';
+  var hintPct = document.createElement('div');
+  hintPct.className = 'field-hint';
+  hintPct.textContent = 'Preencha % ou valor — o outro calcula';
+  cPct.appendChild(lPct);
+  cPct.appendChild(iPct);
+  cPct.appendChild(hintPct);
+
+  /* Saldo Devedor */
+  var cSaldo = document.createElement('div');
+  cSaldo.className = 'col';
+  var lSaldo = document.createElement('label');
+  lSaldo.textContent = 'Saldo Devedor (R$)';
+  var iSaldo = document.createElement('input');
+  iSaldo.type = 'text';
+  iSaldo.id = 'p' + id + '_saldo';
+  iSaldo.placeholder = 'Ex: 585.000,00';
+  cSaldo.appendChild(lSaldo);
+  cSaldo.appendChild(iSaldo);
+
+  rowValores.appendChild(cValor);
+  rowValores.appendChild(cEntrada);
+  rowValores.appendChild(cPct);
+  rowValores.appendChild(cSaldo);
+  wrap.appendChild(rowValores);
+
+  /* Lógica de cálculo automático entrada <-> % */
+  function parseBR(str) {
+    if (!str) return NaN;
+    return parseFloat(str.replace(/\./g, '').replace(',', '.'));
+  }
+  function formatBR(num) {
+    return num.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  iValor.addEventListener('input', function() {
+    var v = parseBR(iValor.value);
+    var p = parseBR(iPct.value);
+    if (!isNaN(v) && !isNaN(p)) {
+      iEntrada.value = formatBR(v * p / 100);
+    }
+  });
+  iPct.addEventListener('input', function() {
+    var v = parseBR(iValor.value);
+    var p = parseBR(iPct.value);
+    if (!isNaN(v) && !isNaN(p)) {
+      iEntrada.value = formatBR(v * p / 100);
+    }
+  });
+  iEntrada.addEventListener('input', function() {
+    var v = parseBR(iValor.value);
+    var e = parseBR(iEntrada.value);
+    if (!isNaN(v) && !isNaN(e) && v > 0) {
+      iPct.value = formatBR(e / v * 100);
+    }
+  });
+
+  /* ---- DIVISOR ---- */
+  var div1 = document.createElement('hr');
+  div1.className = 'plano-divider';
+  wrap.appendChild(div1);
+
+  /* ---- CONDIÇÕES ---- */
+  var lbCond = document.createElement('div');
+  lbCond.className = 'plano-section-label';
+  lbCond.textContent = 'Condi\u00e7\u00f5es de Pagamento';
+  wrap.appendChild(lbCond);
+
+  var rowCond = document.createElement('div');
+  rowCond.className = 'row';
+
+  var cPrazo = document.createElement('div');
+  cPrazo.className = 'col';
+  var lPrazo = document.createElement('label');
+  lPrazo.textContent = 'Prazo (meses)';
+  var iPrazo = document.createElement('input');
+  iPrazo.type = 'text';
+  iPrazo.id = 'p' + id + '_prazo';
+  iPrazo.placeholder = 'Ex: 65';
+  cPrazo.appendChild(lPrazo);
+  cPrazo.appendChild(iPrazo);
+
+  var cParcela = document.createElement('div');
+  cParcela.className = 'col';
+  var lParcela = document.createElement('label');
+  lParcela.textContent = 'Parcela Mensal (R$)';
+  var iParcela = document.createElement('input');
+  iParcela.type = 'text';
+  iParcela.id = 'p' + id + '_parcela';
+  iParcela.placeholder = 'Ex: 9.000,00';
+  cParcela.appendChild(lParcela);
+  cParcela.appendChild(iParcela);
+
+  var cCorr = document.createElement('div');
+  cCorr.className = 'col w2';
+  var lCorr = document.createElement('label');
+  lCorr.textContent = 'Corre\u00e7\u00e3o';
+  var iCorr = document.createElement('input');
+  iCorr.type = 'text';
+  iCorr.id = 'p' + id + '_corr';
+  iCorr.value = 'IPCA + 1% ao m\u00eas';
+  cCorr.appendChild(lCorr);
+  cCorr.appendChild(iCorr);
+
+  rowCond.appendChild(cPrazo);
+  rowCond.appendChild(cParcela);
+  rowCond.appendChild(cCorr);
+  wrap.appendChild(rowCond);
+
+  /* ---- DIVISOR ---- */
+  var div2 = document.createElement('hr');
+  div2.className = 'plano-divider';
+  wrap.appendChild(div2);
+
+  /* ---- OBSERVAÇÃO ---- */
+  var lbObs = document.createElement('div');
+  lbObs.className = 'plano-section-label';
+  lbObs.textContent = 'Observa\u00e7\u00e3o';
+  wrap.appendChild(lbObs);
+
+  var rowObs = document.createElement('div');
+  rowObs.className = 'row';
+  var cObs = document.createElement('div');
+  cObs.className = 'col';
+  var lObs = document.createElement('label');
+  lObs.textContent = 'Observa\u00e7\u00e3o do Plano';
+  var taObs = document.createElement('textarea');
+  taObs.id = 'p' + id + '_obs';
+  taObs.placeholder = 'Ex: Possibilidade de aumento de prazo. Parcelas aprox. R$ 5.400,00 mensais.';
+  cObs.appendChild(lObs);
+  cObs.appendChild(taObs);
+  rowObs.appendChild(cObs);
+  wrap.appendChild(rowObs);
+
+  return wrap;
+}
+
+function adicionarPlano() {
+  planoCount++;
+  var el = criarPlano(planoCount);
+  document.getElementById('planos-container').appendChild(el);
+}
+
+function removerPlano(id) {
+  var el = document.getElementById('plano-' + id);
+  if (el) el.remove();
+}
+
+/* -------- GERAR PDF -------- */
+function gerarPDF() {
+  var planos = document.querySelectorAll('.plano-wrap');
+  if (!planos.length) { alert('Adicione ao menos um plano antes de gerar o PDF.'); return; }
+
+  var comprador = val('comprador');
+  var emp       = val('empreendimento');
+  var construtora = val('construtora');
+  var bloco     = val('bloco');
+  var apto      = val('apto');
+  var metragem  = val('metragem');
+  var quartos   = val('quartos');
+  var varandas  = val('varandas');
+  var vista     = val('vista');
+  var carac     = val('carac');
+
+  /* FIX3: 9o -> 9\u00ba */
+  apto = apto.replace(/([0-9]+)o /g, '$1\u00ba ').replace(/([0-9]+)o-/g, '$1\u00ba-');
+
+  var dataRaw = val('data-doc');
+  var dataStr = '';
+  if (dataRaw) {
+    var dp = dataRaw.split('-');
+    var ms = ['janeiro','fevereiro','mar\u00e7o','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+    dataStr = parseInt(dp[2]) + ' de ' + ms[parseInt(dp[1])-1] + ' de ' + dp[0];
+  }
+
+  var cp = [];
+  if (metragem) cp.push(metragem + 'm\u00b2');
+  if (quartos)  cp.push(quartos + ' Quartos');
+  if (varandas) cp.push(varandas + ' Varanda(s)');
+  if (vista)    cp.push(vista);
+  if (carac)    cp.push(carac);
+  var caracStr = cp.join(' | ');
+
+  /* FIX1: empreendimento */
+  var empLine = emp + (construtora ? ' - Construtora ' + construtora : '');
+
+  /* Planos */
+  var planosHtml = '';
+  for (var i = 0; i < planos.length; i++) {
+    var pid     = planos[i].id.replace('plano-', '');
+    var pTitulo = val('p'+pid+'_titulo') || 'PLANO EXCLUSIVO FINANCIAMENTO DIRETO';
+    var pValor  = val('p'+pid+'_valor');
+    var pEntrada= val('p'+pid+'_entrada');
+    var pPct    = val('p'+pid+'_pct');
+    var pSaldo  = val('p'+pid+'_saldo');
+    var pPrazo  = val('p'+pid+'_prazo');
+    var pParcela= val('p'+pid+'_parcela');
+    var pCorr   = val('p'+pid+'_corr') || 'IPCA + 1% ao m\u00eas';
+    var pObs    = val('p'+pid+'_obs');
+
+    planosHtml += '<div class="pdf-plano-title">'+pTitulo+'</div>';
+    if (apto)     planosHtml += '<p class="pdf-apt">'+apto+'</p>';
+    if (caracStr) planosHtml += '<p class="pdf-carac">'+caracStr+'</p>';
+
+    var rows = '';
+    if (pValor)   rows += '<tr><td><strong>Valor do Im\u00f3vel</strong></td><td>R$ '+pValor+'</td></tr>';
+    var eL = pPct ? 'Entrada - '+pPct+'%' : 'Entrada';
+    if (pEntrada) rows += '<tr><td>'+eL+'</td><td>R$ '+pEntrada+'</td></tr>';
+    if (pSaldo)   rows += '<tr><td>Saldo Devedor</td><td>R$ '+pSaldo+'</td></tr>';
+    if (pPrazo && pParcela) rows += '<tr><td>Parcelamento</td><td>'+pPrazo+'x de R$ '+pParcela+'</td></tr>';
+
+    if (rows) planosHtml += '<table class="ptable"><tbody>'+rows+'</tbody></table>';
+    if (pCorr) {
+      planosHtml += '<p class="pdf-cond-title">Condi\u00e7\u00e3o de Pagamento:</p>';
+      planosHtml += '<p class="pdf-cond-item">\u2022 Corre\u00e7\u00e3o: '+pCorr+'</p>';
+    }
+    if (pObs) planosHtml += '<div class="pdf-obs">'+pObs.replace(/\n/g,'<br>')+'</div>';
+  }
+
+  /* Enxoval */
+  var enxHtml = '';
+  var enxV = val('enx-valor'), enxP = val('enx-parcelas'), enxO = val('enx-obs');
+  if (enxV || enxP || enxO) {
+    enxHtml = '<div class="pdf-enxoval"><p class="pdf-enx-title">ENXOVAL DO CONDOM\u00cdNIO</p>';
+    if (enxV) enxHtml += '<p><strong>Valor total:</strong> R$ '+enxV+'</p>';
+    if (enxP) enxHtml += '<p>Parcelamento: '+enxP+'</p>';
+    if (enxO) enxHtml += '<p>'+enxO+'</p>';
+    enxHtml += '</div>';
+  }
+
+  var obsG   = val('obs-gerais');
+  var obsHtml= obsG ? '<div class="pdf-obs-geral">'+obsG.replace(/\n/g,'<br>')+'</div>' : '';
+  var cor    = val('corretor');
+  var blocoStr = bloco ? 'Bloco de Interesse: '+bloco : '';
+
+  /* Montar PDF */
+  var docHtml = ''
+    + '<img class="pdf-logo" src="07-lockup-horizontal-sobre-branco.png" alt="Campello">'
+    + '<p class="pdf-title">PROPOSTA COMERCIAL</p>'
+    + '<hr class="pdf-hr">'
+    /* FIX1: empLine negrito maior */
+    + '<p style="text-align:center;font-size:13pt;font-weight:bold;margin:0 0 6px;">' + empLine + '</p>'
+    /* FIX2: bloco centralizado, espa\u00e7ado */
+    + (blocoStr ? '<p style="text-align:center;font-size:12pt;margin:0 0 10px;">' + blocoStr + '</p>' : '<div style="margin-bottom:10px;"></div>')
+    /* FIX2: proponente separado */
+    + (comprador ? '<p class="pdf-proponente" style="margin-top:4px;"><span>Proponente comprador:</span> ' + comprador + '</p>' : '')
+    + '<hr class="pdf-hr">'
+    + planosHtml
+    + enxHtml
+    + obsHtml
+    /* FIX4: disclaimer fora do enxoval */
+    + '<p class="pdf-disclaimer" style="margin-top:28px;font-size:10pt;">Proposta sujeita \u00e0 altera\u00e7\u00e3o sem aviso pr\u00e9vio e disponibilidade da(s) unidade(s).</p>'
+    + (dataStr ? '<p class="pdf-date-cor" style="margin-top:12px;">' + val('cidade') + ', ' + dataStr + '</p>' : '')
+    /* FIX5: corretor sem <strong> colado */
+    + (cor ? '<p class="pdf-date-cor" style="margin-top:6px;">Corretor: ' + cor + '</p>' : '')
+    + '<div class="pdf-footer">'
+    + '<strong>Campello Im\u00f3veis</strong><br>'
+    + 'CNPJ 25.309.187/0001-30<br>'
+    + 'R. dos Advogados, 270B - Al\u00edpio de Melo, Belo Horizonte \u2013 MG<br>'
+    + '(31) 3643-9774 / (31) 98439-7777'
+    + '</div>';
+
+  document.getElementById('pdf-doc').innerHTML = docHtml;
+
+  var nomeArq  = comprador.replace(/\s+/g,'_') || 'proposta';
+  var filename = 'Proposta_' + nomeArq + '.pdf';
+
+  /* FIX6: abrir preview + download */
+  html2pdf().set({
+    margin: 0, filename: filename,
+    image: { type:'jpeg', quality:0.98 },
+    html2canvas: { scale:2, useCORS:true, backgroundColor:'#ffffff' },
+    jsPDF: { unit:'mm', format:'a4', orientation:'portrait' }
+  }).from(document.getElementById('pdf-doc')).outputPdf('blob').then(function(blob){
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    window.open(url,'_blank');
+  });
+}
+
+/* -------- LIMPAR -------- */
+function limparForm() {
+  if (!confirm('Limpar todos os campos?')) return;
+  var campos = document.querySelectorAll('input[type=text], input[type=date], textarea');
+  for (var i = 0; i < campos.length; i++) campos[i].value = '';
+  document.getElementById('cidade').value = 'Belo Horizonte';
+  document.getElementById('data-doc').value = new Date().toISOString().split('T')[0];
+  document.getElementById('planos-container').innerHTML = '';
+  planoCount = 0;
+  adicionarPlano();
+}
+
+/* -------- EVENTOS -------- */
+document.getElementById('btn-add-plano').addEventListener('click', adicionarPlano);
+document.getElementById('btn-gerar-pdf').addEventListener('click', gerarPDF);
+document.getElementById('btn-limpar').addEventListener('click', limparForm);
+document.getElementById('btn-install-cancel').addEventListener('click', function() {
+  document.getElementById('install-banner').style.display = 'none';
+});
+
+/* -------- PWA -------- */
+var deferredPrompt;
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('install-banner').style.display = 'block';
+});
+document.getElementById('btn-install').addEventListener('click', function() {
+  document.getElementById('install-banner').style.display = 'none';
+  if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt = null; }
+});
+window.addEventListener('appinstalled', function() {
+  document.getElementById('install-banner').style.display = 'none';
+});
+
+/* -------- SERVICE WORKER -------- */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js')
+      .then(function(r) { console.log('SW:', r.scope); })
+      .catch(function(e) { console.log('SW erro:', e); });
+  });
+}
+
+/* -------- INIT -------- */
+window.onload = function() {
+  document.getElementById('data-doc').value = new Date().toISOString().split('T')[0];
+  adicionarPlano();
+};
+</script>
+</body>
+</html>
